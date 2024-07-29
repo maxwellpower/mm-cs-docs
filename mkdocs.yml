@@ -1,0 +1,91 @@
+# Mattermost Customer Success Documentation
+
+# Copyright (c) 2024 Maxwell Power
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom
+# the Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE
+# AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+# File: mkdocs.yml
+
+site_name: Mattermost Customer Success Documentation
+site_url: https://mmcs.maxpower.dev/
+repo_url: https://github.com/maxwellpower/mm-cs-deploy-docs
+repo_name: maxwellpower/mm-cs-deploy-docs
+edit_uri: edit/main/docs/
+site_dir: public
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.footer
+    - navigation.top
+#    - navigation.tabs
+    - content.code.copy
+    - content.code.select
+    - content.action.edit
+    - content.action.view
+    - search.suggest
+    - search.highlight
+    - toc.follow
+    - toc.integrate
+  palette:
+    scheme: preference
+    primary: black
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  generator: false
+  manifest: 'manifest.webmanifest'
+  search:
+    language: 'en'
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - pymdownx.highlight:
+      linenums_style: pymdownx.inline
+
+plugins:
+  - search:
+      lang: en
+  - minify:
+      minify_html: true
+
+nav:
+  - Home: index.md
+  - HA Deployment Guides:
+    - Amazon (AWS): deploy/aws.md
+#   - Google (GCP): gcp.md
+#   - Microsoft (Azure): azure.md
