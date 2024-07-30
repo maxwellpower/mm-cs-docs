@@ -16,8 +16,8 @@
 
 site_name: Mattermost Customer Success Documentation
 site_url: https://mmcs.maxpower.dev/
-repo_url: https://github.com/maxwellpower/mm-cs-deploy-docs
-repo_name: maxwellpower/mm-cs-deploy-docs
+repo_url: https://github.com/maxwellpower/mm-cs-docs
+repo_name: maxwellpower/mm-cs-docs
 edit_uri: edit/main/docs/
 site_dir: public
 

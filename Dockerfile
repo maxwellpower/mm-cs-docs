@@ -17,10 +17,10 @@
 FROM debian:latest
 
 LABEL MAINTAINER="maxwell.power@mattermost.com"
-LABEL org.opencontainers.image.title="mm-cs-deploy-docs"
+LABEL org.opencontainers.image.title="mm-cs-docs"
 LABEL org.opencontainers.image.description="Mattermost CS Docs"
 LABEL org.opencontainers.image.authors="Maxwell Power"
-LABEL org.opencontainers.image.source="https://github.com/maxwellpower/mm-cs-deploy-docs"
+LABEL org.opencontainers.image.source="https://github.com/maxwellpower/mm-cs-docs"
 LABEL org.opencontainers.image.licenses=MIT
 
 ENV DEBIAN_FRONTEND=noninteractive

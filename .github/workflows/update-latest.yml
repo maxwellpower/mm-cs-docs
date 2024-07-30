@@ -12,17 +12,36 @@
 # AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-# File: .markdownlint.yml
+# File: .github/workflows/update-latest.yml
 
-default: true
-MD003:
-  style: atx
-MD004:
-  style: dash
-MD007:
-  indent: 4
-MD013: false
-MD024:
-  siblings_only: true
-MD035:
-  style: "---"
+name: Update Latest Tag
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  update-latest-tag:
+    runs-on: ubuntu-latest
+    permissions:
+        contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      
+      - name: Update latest tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Update the Latest Tag
+          git tag latest --force
+          
+          # Push the latest tag to the remote
+          git push origin latest --force
