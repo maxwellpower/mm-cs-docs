@@ -109,7 +109,7 @@ The VPC endpoint will allow SSH access to compute resources inside the VPC.
 ### 6. Set Up the Load Balancer
 
 !!!Note
-    If you are using SSL/TLS, ensure that the certificate we generated earlier is "**Issued**," or it will not be available to be selected. Once the DNS records are updated, certificates can take 30 minutes to validate.
+    If you are using SSL/TLS, ensure that the certificate generated earlier is "**Issued**," or it will not be available to be selected. Once the DNS records are updated, certificates can take 30 minutes to validate.
 
 #### Create an Application Load Balancer (ALB)
 
@@ -278,12 +278,15 @@ On each node, complete the following:
  "DataSourceReplicas": ["postgres://mmuser:<PASSWORD>@mattermostdb.cluster-ro-<ID>.<ZONE>.rds.amazonaws.com/mattermost?sslmode=disable&connect_timeout=10"],
  ```
 
+- Set `ServiceSettings.EnableLocalMode` to true to allow `mmctl` commands.
+- (Optionally) Set `PluginSettings.EnableUploads` to true.
+
 ##### Create Systemd Service
 
 - Create a systemd service file for Mattermost:
 
   ```bash
-  sudo nano /etc/systemd/system/mattermost.service
+  sudo nano /lib/systemd/system/mattermost.service
   ```
 
 - Add the following content:
@@ -362,6 +365,7 @@ sudo nano /opt/mattermost/config/config.json
 When configuration in the database is enabled, any changes to the configuration are recorded to the `Configurations` and `ConfigurationFiles` tables and `ClusterSettings.ReadOnlyConfig` is ignored, enabling full use of the System Console.
 
 - Review your `/opt/mattermost/config/config.json` file for the database connection string.
+    - `cat /opt/mattermost/config/config.json | grep "DataSource"`
 - Create an environment file on both nodes to store the database connection string.
 
 ```bash
@@ -369,37 +373,40 @@ sudo nano /opt/mattermost/config/mattermost.environment
 ```
 
 - Add your connection string to the variable below and then add to the top of the `mattermost.environment` file.
+    - If you have `\u0026` in the connection string, replace it with `&`, or the service will fail to start.
 
-```text
-MM_CONFIG='postgres://mmuser:<PASSWORD>@mattermostdb.cluster-<ID>.<ZONE>.rds.amazonaws.com/mattermost?sslmode=disable&connect_timeout=10'`
+```bash
+MM_CONFIG='postgres://mmuser:<PASSWORD>@mattermostdb.cluster-<ID>.<ZONE>.rds.amazonaws.com/mattermost?sslmode=disable&connect_timeout=10'
 ```
 
 - Edit the `mattermost.service` file to load the environment file.
 
 ```bash
-sudo nano /etc/systemd/system/mattermost.service
+sudo nano /lib/systemd/system/mattermost.service
 ```
 
 - Add the following under `[Service]` just above `ExecStart`:
 
-```text
+```bash
 EnvironmentFile=/opt/mattermost/config/mattermost.environment
 ```
 
 - Migrate the config to the database using `mmctl`. This process only needs to be completed on one node.
+    - *Ensure the `--local` is included in your `mmct` command.*
+    - `?sslmode=disable&connect_timeout=10` is not supported here and may cause the `mmctl` command to fail.
 
 ```bash
-mmctl config migrate /opt/mattermost/config/config.json "postgres://mmuser:<PASSWORD>@mattermostdb.cluster-<ID>.<ZONE>.rds.amazonaws.com/mattermost?sslmode=disable&connect_timeout=10" --local
+/opt/mattermost/bin/mmctl config migrate /opt/mattermost/config/config.json "postgres://mmuser:<PASSWORD>@mattermostdb.cluster-<ID>.<ZONE>.rds.amazonaws.com/mattermost" --local
 ```
 
-- Once the config is migrated to the Database, reload the `mattermost.service` on each node to load the new configuration.
+- Once the configuration is migrated to the database, reload the `mattermost.service` on each node to load the new configuration.
 
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart mattermost
 ```
 
-### 13. Configuring S3 Storage for Mattermost
+### 13. Configure S3 Storage for Mattermost
 
 To configure Amazon S3 for Mattermost file storage, including files, plugins, and other data, follow these detailed steps:
 
@@ -523,7 +530,7 @@ The bucket policy will grant the IAM role attached to the EC2 instances permissi
      sudo systemctl restart mattermost
      ```
 
-#### Testing and Validation
+#### Test and Validation
 
 - Log in to Mattermost and upload a file to test the S3 integration.
 - Ensure that files are being stored in the specified S3 bucket.
@@ -535,15 +542,19 @@ Configure your single sign-on solution if required in your environment. Mattermo
 - **SAML**: [SAML Single Sign-On](https://docs.mattermost.com/onboard/sso-saml.html#saml-single-sign-on ) .
 - **AD/LDAP**: [Active Directory/LDAP](https://docs.mattermost.com/onboard/ad-ldap.html#active-directory-ldap-setup).
 
+## (Optional) Calls Setup
+
+==Work in Progress ...==
+
 ## ElasticSearch Configuration
 
 For more details, review the [Elasticsearch](https://docs.mattermost.com/scale/elasticsearch.html) product documentation.
 
-### 15. Create and Configure ElasticSearch Cluster
+### 1. Create and Configure ElasticSearch Cluster
 
 ==Work in Progress ...==
 
-### 16. Configure Mattermost to use ElasticSearch
+### 1. Configure Mattermost to use ElasticSearch
 
 ==Work in Progress ...==
 
@@ -551,14 +562,14 @@ For more details, review the [Elasticsearch](https://docs.mattermost.com/scale/e
 
 For more details on installing and configuring Prometheus and Grafana, review [Deploy Prometheus and Grafana for performance monitoring](https://docs.mattermost.com/scale/deploy-prometheus-grafana-for-performance-monitoring.html) in the main product documentation.
 
-### 17. Set Up Prometheus
+### 1. Set Up Prometheus
 
 ==Work in Progress ...==
 
 - Create a new EC2 instance for Prometheus.
 - Install Prometheus and configure it to scrape metrics from Mattermost and PostgreSQL.
 
-### 18. Set Up Grafana
+### 1. Set Up Grafana
 
 ==Work in Progress ...==
 
@@ -567,19 +578,19 @@ For more details on installing and configuring Prometheus and Grafana, review [D
 - Create dashboards to visualize metrics.
 - Setup [Performance Alerts](https://docs.mattermost.com/scale/performance-alerting.html).
 
-### 19. Integrate with CloudWatch
+### 1. Integrate with CloudWatch
 
 - Enable CloudWatch logging for EC2 and RDS instances.
 - Configure CloudWatch Alarms for critical metrics.
 
 ## Backup, Recovery, and Updating
 
-### 20. Automate Backups
+### 1. Automate Backups
 
 - Enable automatic backups in RDS and set a retention period.
 - Regularly test your backup and recovery process.
 
-### 21. Regular Updates
+### 1. Regular Updates
 
 Regularly update EC2 instances and Mattermost software.
 
