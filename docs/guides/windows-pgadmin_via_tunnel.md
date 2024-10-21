@@ -13,7 +13,7 @@ This guide will walk you through the process of:
 1. Setting up an SSH tunnel using VS Code.
 2. Installing and configuring pgAdmin to connect through the tunnel.
 
-### Step 1: Establish an SSH Tunnel with VS Code
+## Step 1: Establish an SSH Tunnel with VS Code
 
 1. **Open VS Code** on your Windows machine.
 2. **Open the integrated terminal** by clicking `Terminal > New Terminal` or using the shortcut `Ctrl + `` (backtick).
@@ -39,12 +39,12 @@ This guide will walk you through the process of:
 
 5. **Keep this terminal open**. The SSH tunnel will remain active as long as this terminal window is open.
 
-### Step 2: Install pgAdmin (if not already installed)
+## Step 2: Install pgAdmin (if not already installed)
 
 1. **Download pgAdmin** from the [pgAdmin website](https://www.pgadmin.org/download/).
 2. **Run the installer** and follow the instructions to complete the installation.
 
-### Step 3: Configure pgAdmin to Connect via the SSH Tunnel
+## Step 3: Configure pgAdmin to Connect via the SSH Tunnel
 
 1. **Open pgAdmin** on your Windows machine.
 2. **Create a New Server Connection:**
@@ -62,7 +62,7 @@ This guide will walk you through the process of:
 4. **Save the Connection:**
    - Click `Save` to finalize the setup.
 
-### Step 4: Test the Connection
+## Step 4: Test the Connection
 
 1. **Expand the server node** in the left panel in pgAdmin.
 2. **You should see your database** and be able to browse tables, run queries, and manage data as needed.
