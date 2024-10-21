@@ -89,3 +89,7 @@ nav:
     - Amazon (AWS): deploy/aws.md
 #   - Google (GCP): gcp.md
 #   - Microsoft (Azure): azure.md
+  - Update Guides:
+    - v9.11 Opensearch Migration: update/v9-11_opensearch.md
+  - Generic Guides:
+    - Confgure Windows pgAdmin via VS Code SSH Tunnel: guides/windows-pgadmin_via_tunnel.md
