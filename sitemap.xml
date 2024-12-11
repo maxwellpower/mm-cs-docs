@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://mmcs.maxpower.dev/</loc>
+         <lastmod>2024-12-11</lastmod>
+    </url>
+    <url>
+         <loc>https://mmcs.maxpower.dev/deploy/aws/</loc>
+         <lastmod>2024-12-11</lastmod>
+    </url>
+    <url>
+         <loc>https://mmcs.maxpower.dev/deploy/azure/</loc>
+         <lastmod>2024-12-11</lastmod>
+    </url>
+    <url>
+         <loc>https://mmcs.maxpower.dev/guides/migrate-server/</loc>
+         <lastmod>2024-12-11</lastmod>
+    </url>
+    <url>
+         <loc>https://mmcs.maxpower.dev/guides/saml-trace/</loc>
+         <lastmod>2024-12-11</lastmod>
+    </url>
+    <url>
+         <loc>https://mmcs.maxpower.dev/guides/windows-pgadmin_via_tunnel/</loc>
+         <lastmod>2024-12-11</lastmod>
+    </url>
+    <url>
+         <loc>https://mmcs.maxpower.dev/update/v9-11_opensearch/</loc>
+         <lastmod>2024-12-11</lastmod>
+    </url>
+</urlset>
