@@ -94,3 +94,4 @@ nav:
   - Generic Guides:
     - Confgure Windows pgAdmin via VS Code SSH Tunnel: guides/windows-pgadmin_via_tunnel.md
     - SAML Trace: guides/saml-trace.md
+    - Migrate Server: guides/migrate-server.md
